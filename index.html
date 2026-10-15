@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super Sekretaris Bot - AI Assistant Showcase</title>
+  <title>Sekretaris Bot - AI Assistant Showcase</title>
   <style>
     :root {
       --bg: #0d0f18;
@@ -17,7 +17,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; }
     .container { max-width: 900px; margin: 0 auto; }
-
+    
     /* Hero Section */
     header { text-align: center; padding: 40px 20px; border: 1px solid var(--neon-cyan); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); background: var(--card); border-radius: 12px; margin-bottom: 30px; }
     .avatar { font-size: 60px; margin-bottom: 10px; }
@@ -45,54 +45,26 @@
 
     /* Interactive Simulation */
     .simulation { background: var(--card); padding: 25px; border-radius: 10px; border: 1px solid var(--neon-cyan); margin-bottom: 30px; }
-    .sim-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); gap: 28px; align-items: start; }
-    @media (max-width: 720px) { .sim-layout { grid-template-columns: 1fr; } }
-    .sim-intro p { color: var(--subtext); margin-bottom: 15px; }
-    .sim-btn-group { display: flex; flex-direction: column; gap: 10px; }
-    .sim-btn { display: flex; align-items: center; gap: 12px; text-align: left; background: transparent; color: var(--text); border: 1px solid #2a2d45; padding: 12px 14px; border-radius: 10px; cursor: pointer; transition: border-color .2s, background .2s; font-size: 0.95rem; }
-    .sim-btn small { display: block; color: var(--subtext); font-size: 0.78rem; }
-    .sim-btn .ico { font-size: 1.4rem; }
-    .sim-btn:hover { border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.06); }
-    .sim-btn.active { border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.12); box-shadow: 0 0 12px rgba(0, 243, 255, 0.2); }
-    .sim-btn:focus-visible, .chip:focus-visible, .cta-btn:focus-visible { outline: 2px solid var(--neon-cyan); outline-offset: 2px; }
+    .sim-btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .sim-btn { background: transparent; color: var(--neon-cyan); border: 1px solid var(--neon-cyan); padding: 8px 16px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+    .sim-btn:hover { background: var(--neon-cyan); color: var(--bg); }
+    .chat-box { background: #080910; border-radius: 8px; padding: 15px; min-height: 120px; border: 1px solid #1f2338; }
+    .msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; max-width: 80%; }
+    .msg.user { background: #1e293b; color: #fff; margin-left: auto; text-align: right; }
+    .msg.bot { background: rgba(0, 243, 255, 0.1); border: 1px solid var(--neon-cyan); color: #fff; }
+    .typing { color: var(--neon-cyan); font-style: italic; }
 
-    /* Phone mockup */
-    .phone { background: #05060c; border: 2px solid #2a2d45; border-radius: 28px; padding: 10px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.12); max-width: 360px; width: 100%; margin: 0 auto; }
-    .phone-screen { background: #0b0e17; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 500px; }
-    .chat-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #121626; border-bottom: 1px solid #1f2338; }
-    .chat-head .pic { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; background: rgba(0, 243, 255, 0.12); border: 1px solid var(--neon-cyan); }
-    .chat-head .name { color: #fff; font-weight: 600; font-size: 0.95rem; line-height: 1.2; }
-    .chat-head .status { color: var(--neon-green); font-size: 0.72rem; }
-    .chat-head .status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--neon-green); margin-right: 5px; }
-    .chat-box { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; scroll-behavior: smooth; background: radial-gradient(circle at 20% 0%, rgba(0, 243, 255, 0.05), transparent 50%); }
-    .empty { margin: auto; text-align: center; color: var(--subtext); font-size: 0.85rem; padding: 0 20px; }
-    .empty span { display: block; font-size: 2rem; margin-bottom: 6px; }
-    .day { align-self: center; font-size: 0.7rem; color: var(--subtext); background: #151a2b; padding: 2px 10px; border-radius: 10px; }
-    .msg { max-width: 85%; padding: 8px 11px 6px; border-radius: 12px; font-size: 0.88rem; line-height: 1.45; animation: pop .22s ease-out; word-wrap: break-word; }
-    .msg .time { display: block; text-align: right; font-size: 0.65rem; color: var(--subtext); margin-top: 2px; }
-    .msg.user { align-self: flex-end; background: #1e3a4a; color: #fff; border-bottom-right-radius: 3px; }
-    .msg.user .time { color: #7fb7c9; }
-    .msg.bot { align-self: flex-start; background: #171c30; border: 1px solid #262c48; color: #fff; border-bottom-left-radius: 3px; }
-    .msg.bot b { color: var(--neon-cyan); }
-    .msg ul { margin: 4px 0 0; }
-    .msg li { margin: 2px 0; padding-left: 14px; }
-    .msg li::before { content: "•"; position: absolute; left: 0; color: var(--neon-cyan); }
-    .tag { display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 8px; font-size: 0.72rem; background: rgba(0, 255, 102, 0.12); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.4); }
-    .typing-dots { display: flex; gap: 4px; padding: 11px 14px; }
-    .typing-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--neon-cyan); opacity: .4; animation: blink 1s infinite; }
-    .typing-dots i:nth-child(2) { animation-delay: .15s; }
-    .typing-dots i:nth-child(3) { animation-delay: .3s; }
-    .quick { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px 12px; background: #121626; border-top: 1px solid #1f2338; min-height: 54px; }
-    .chip { background: transparent; color: var(--neon-cyan); border: 1px solid var(--neon-cyan); border-radius: 16px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; transition: background .2s, color .2s; }
-    .chip:hover { background: var(--neon-cyan); color: var(--bg); }
-    .chip.ok { color: var(--neon-green); border-color: var(--neon-green); }
-    .chip.ok:hover { background: var(--neon-green); color: var(--bg); }
-    .chip.warn { color: var(--neon-pink); border-color: var(--neon-pink); }
-    .chip.warn:hover { background: var(--neon-pink); color: #fff; }
-    .quick .hint { color: var(--subtext); font-size: 0.78rem; align-self: center; }
-    @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
-    @keyframes blink { 0%, 100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
-    @media (prefers-reduced-motion: reduce) { .msg, .typing-dots i { animation: none; } .chat-box { scroll-behavior: auto; } }
+    /* Supabase Data Places Table (Cyberpunk Styled) */
+    .data-section { background: var(--card); padding: 25px; border-radius: 10px; border: 1px solid var(--neon-cyan); box-shadow: 0 0 10px rgba(0, 243, 255, 0.15); margin-bottom: 30px; }
+    .data-section h2 { color: var(--neon-cyan); margin-bottom: 15px; text-shadow: 0 0 5px var(--neon-cyan); }
+    .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #1f2338; }
+    table#places { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; background: #080910; }
+    table#places th { background: rgba(0, 243, 255, 0.15); color: var(--neon-cyan); padding: 12px 10px; border-bottom: 2px solid var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    table#places td { padding: 12px 10px; border-bottom: 1px solid #1f2338; color: var(--text); }
+    table#places tbody tr { transition: background 0.2s ease; }
+    table#places tbody tr:hover { background: rgba(0, 243, 255, 0.05); }
+    table#places td a { display: inline-block; padding: 4px 12px; background: rgba(0, 255, 102, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.2s; }
+    table#places td a:hover { background: var(--neon-green); color: var(--bg); box-shadow: 0 0 8px var(--neon-green); }
 
     /* Footer & CTA */
     footer { text-align: center; padding: 30px 0; border-top: 1px solid #1f2338; }
@@ -105,8 +77,8 @@
   <div class="container">
     <!-- 1. Hero Section -->
     <header>
-      <div class="avatar">🦸‍♀️</div>
-      <h1>Super Sekretaris Bot</h1>
+      <div class="avatar">🤖</div>
+      <h1>Sekretaris Bot</h1>
       <div class="badge">🟢 Status: Active & Ready 24/7</div>
       <p class="tagline">Mengingatkan agenda harian, ulang tahun teman, serta merangkum rapat secara otomatis.</p>
     </header>
@@ -152,152 +124,103 @@
     <!-- 4. Interactive Simulation -->
     <div class="simulation">
       <h2>⚡ Simulasi Interaksi Bot</h2>
-      <div class="sim-layout">
-        <div class="sim-intro">
-          <p>Pilih skenario, lalu lihat bagaimana Super Sekretaris Bot membalas di WhatsApp:</p>
-          <div class="sim-btn-group" id="scenarioBtns">
-            <button class="sim-btn" data-sim="agenda"><span class="ico">📅</span><span>Jadwal Hari Ini<small>Agenda & ulang tahun teman</small></span></button>
-            <button class="sim-btn" data-sim="rapat"><span class="ico">📝</span><span>Rangkuman Rapat<small>Ringkasan Google Meet otomatis</small></span></button>
-            <button class="sim-btn" data-sim="hitl"><span class="ico">🤝</span><span>Approval HITL<small>Setujui sebelum masuk Notion</small></span></button>
-          </div>
-        </div>
-
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="chat-head">
-              <div class="pic">🦸‍♀️</div>
-              <div>
-                <div class="name">Super Sekretaris Bot</div>
-                <div class="status">online</div>
-              </div>
-            </div>
-            <div class="chat-box" id="chatBox" aria-live="polite">
-              <div class="empty"><span>💬</span>Pilih skenario di samping untuk memulai simulasi</div>
-            </div>
-            <div class="quick" id="quick"><span class="hint">Pilih skenario untuk mencoba</span></div>
-          </div>
-        </div>
+      <p style="color: var(--subtext); margin-bottom: 15px;">Klik salah satu skenario untuk menguji respons Sekretaris Bot:</p>
+      <div class="sim-btn-group">
+        <button class="sim-btn" onclick="runSim('agenda')">Jadwal Hari Ini</button>
+        <button class="sim-btn" onclick="runSim('rapat')">Rangkuman Rapat</button>
+        <button class="sim-btn" onclick="runSim('hitl')">Approval HITL</button>
+      </div>
+      <div class="chat-box" id="chatBox">
+        <p style="color: var(--subtext); text-align: center;">[Pilih skenario di atas untuk memulai simulasi]</p>
       </div>
     </div>
 
-    <!-- 5. Footer & CTA -->
+    <!-- 5. Data Section (Supabase Integration) -->
+    <div class="data-section">
+      <h2>📍 Database Rekomendasi Lokasi</h2>
+      <div class="table-container">
+        <table id="places">
+          <thead>
+            <tr><th>Nama</th><th>Kategori</th><th>Rating</th><th>Review</th><th>Kota</th><th>Telepon</th><th>Maps</th></tr>
+          </thead>
+          <tbody><tr><td colspan="7">Memuat data...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. Footer & CTA -->
     <footer>
-      <a href="https://wa.me/6281xxxxxxxxx" target="_blank" rel="noopener" class="cta-btn">Hubungi / Hubungkan WhatsApp</a>
+      <a href="https://wa.me/6281xxxxxxxxx" target="_blank" class="cta-btn">Hubungi / Hubungkan WhatsApp</a>
       <p class="footer-text">Built with AI · AI Builder Bootcamp Showcase</p>
     </footer>
   </div>
 
   <script>
-    const chatBox = document.getElementById('chatBox');
-    const quick = document.getElementById('quick');
-    let runId = 0;
-
-    const scenarios = {
-      agenda: {
-        user: "Apa agenda saya hari ini?",
-        bot: [
-          "📌 <b>Agenda Hari Ini</b><ul><li>10:00 WIB: Sync Meeting via Google Meet</li><li>14:00 WIB: Review Design Q4</li></ul>",
-          "🎉 <b>Reminder:</b> Hari ini ulang tahun <b>Budi</b> (Teman Baik)! Mau saya kirimkan ucapan?"
-        ],
-        chips: [
-          { label: "Kirim ucapan ke Budi", user: "Kirim ucapan ke Budi", reply: "✅ Ucapan terkirim ke Budi via WhatsApp." }
-        ]
-      },
-      rapat: {
-        user: "Rangkum hasil rapat Google Meet barusan.",
-        bot: [
-          "⏳ Memproses rekaman & transkrip rapat...",
-          "📝 <b>Rangkuman Rapat Q4</b><ul><li>Fokus: Campaign TikTok Ads</li><li>Budget disetujui: Rp 20 Juta</li><li>Action Item: Budi siapkan brief desain (Deadline: 5 Okt)</li></ul>"
-        ],
-        chips: [
-          { label: "Kirim ke Notion", user: "Kirim draf notula ke Notion.", next: "hitl-confirm" }
-        ]
-      },
-      hitl: {
-        user: "Kirim draf notula ke Notion.",
-        bot: [
-          "⚠️ <b>Persetujuan Human-in-the-Loop</b><br>Judul: <i>Diskusi Marketing Q4</i><br>Apakah draf ini disetujui untuk disimpan ke Notion?"
-        ],
-        chips: "hitl"
+    // Simulation Script
+    function runSim(type) {
+      const chatBox = document.getElementById('chatBox');
+      chatBox.innerHTML = '';
+      
+      let userMsg = '', botMsg = '';
+      if(type === 'agenda') {
+        userMsg = "Apa agenda saya hari ini?";
+        botMsg = "📌 <b>Agenda Hari Ini:</b><br>- 10:00 WIB: Sync Meeting via Google Meet<br>- 14:00 WIB: Review Design Q4<br>🎉 <b>Reminder:</b> Hari ini ulang tahun Budi (Teman Baik)!";
+      } else if(type === 'rapat') {
+        userMsg = "Rangkum hasil rapat Google Meet barusan.";
+        botMsg = "📝 <b>Rangkuman Rapat Q4:</b><br>- Fokus: Campaign TikTok Ads<br>- Budget disetujui: Rp 20 Juta<br>- Action Item: Budi siapkan brief desain (Deadline: 5 Okt).";
+      } else if(type === 'hitl') {
+        userMsg = "Kirim draf notula ke Notion.";
+        botMsg = "⚠️ <b>Human-in-the-Loop Approval Required:</b><br>Judul: 'Diskusi Marketing Q4'<br>Apakah draf ini disetujui untuk disimpan ke Notion?<br><i>Balas 'ACC' atau 'REVISI: [catatan]'</i>";
       }
-    };
 
-    const hitlChips = [
-      { label: "✓ ACC", cls: "ok", user: "ACC", reply: "✅ Notula <b>Diskusi Marketing Q4</b> tersimpan ke Notion.<br><span class='tag'>Tersinkron</span>" },
-      { label: "✎ Revisi", cls: "warn", user: "REVISI: tambahkan deadline tiap action item", reply: "🔄 Draf diperbarui dengan deadline untuk tiap action item. Setujui versi baru?", chips: "hitl-again" }
-    ];
+      chatBox.innerHTML = `<div class="msg user">${userMsg}</div><div class="msg bot typing">Sekretaris Bot sedang mengetik...</div>`;
 
-    const now = () => new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':');
-    const wait = ms => new Promise(r => setTimeout(r, ms));
-    const scroll = () => { chatBox.scrollTop = chatBox.scrollHeight; };
+      setTimeout(() => {
+        chatBox.innerHTML = `<div class="msg user">${userMsg}</div><div class="msg bot">${botMsg}</div>`;
+      }, 1000);
+    }
 
-    function addMsg(type, html) {
-      const d = document.createElement('div');
-      d.className = 'msg ' + type;
-      d.innerHTML = html + '<span class="time">' + now() + (type === 'user' ? ' ✓✓' : '') + '</span>';
-      chatBox.appendChild(d);
-      scroll();
-    }
-    function showTyping() {
-      const d = document.createElement('div');
-      d.className = 'msg bot typing-dots';
-      d.innerHTML = '<i></i><i></i><i></i>';
-      chatBox.appendChild(d);
-      scroll();
-      return d;
-    }
-    async function botSay(html, id) {
-      const t = showTyping();
-      await wait(900);
-      t.remove();
-      if (id !== runId) return;
-      addMsg('bot', html);
-    }
-    function setChips(list, id) {
-      quick.innerHTML = '';
-      if (!list || !list.length) { quick.innerHTML = '<span class="hint">Simulasi selesai — coba skenario lain</span>'; return; }
-      list.forEach(c => {
-        const b = document.createElement('button');
-        b.className = 'chip ' + (c.cls || '');
-        b.textContent = c.label;
-        b.onclick = () => userReply(c, id);
-        quick.appendChild(b);
-      });
-    }
-    async function userReply(c, id) {
-      if (id !== runId) return;
-      quick.innerHTML = '<span class="hint">Bot sedang membalas...</span>';
-      addMsg('user', c.user);
-      await wait(400);
-      if (c.next === 'hitl-confirm') {
-        await botSay(scenarios.hitl.bot[0], id);
-        if (id === runId) setChips(hitlChips, id);
-        return;
+    // Supabase Script
+    const SUPABASE_URL = 'https://lxdqiahzkmqnajjpprbq.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_kXa51-tFqPMYPUhBct1WoA_N_j3AAKV';
+
+    async function loadPlaces() {
+      const tbody = document.querySelector('#places tbody');
+      try {
+        const res = await fetch(
+          SUPABASE_URL + '/rest/v1/places?select=*&order=reviews_count.desc.nullslast&limit=100',
+          { headers: { apikey: SUPABASE_KEY } }
+        );
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const rows = await res.json();
+
+        tbody.replaceChildren();
+        for (const p of rows) {
+          const tr = document.createElement('tr');
+          for (const v of [p.title, p.category_name, p.total_score, p.reviews_count, p.city, p.phone]) {
+            const td = document.createElement('td');
+            td.textContent = v ?? '-';
+            tr.appendChild(td);
+          }
+          const td = document.createElement('td');
+          if (p.url && p.url.startsWith('https://')) {
+            const a = document.createElement('a');
+            a.href = p.url;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.textContent = 'Buka';
+            td.appendChild(a);
+          }
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+        }
+        if (!rows.length) tbody.innerHTML = '<tr><td colspan="7">Belum ada data.</td></tr>';
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="7">Gagal memuat data. Periksa kembali pengaturan koneksi Supabase Anda.</td></tr>';
+        console.error(e);
       }
-      await botSay(c.reply, id);
-      if (id !== runId) return;
-      if (c.chips === 'hitl-again') setChips([hitlChips[0]], id); else setChips(null, id);
     }
-
-    async function runSim(type) {
-      const id = ++runId;
-      const s = scenarios[type];
-      document.querySelectorAll('.sim-btn').forEach(b => b.classList.toggle('active', b.dataset.sim === type));
-      chatBox.innerHTML = '<div class="day">Hari ini</div>';
-      quick.innerHTML = '<span class="hint">Bot sedang membalas...</span>';
-      await wait(250);
-      if (id !== runId) return;
-      addMsg('user', s.user);
-      await wait(400);
-      for (const html of s.bot) {
-        if (id !== runId) return;
-        await botSay(html, id);
-      }
-      if (id !== runId) return;
-      setChips(s.chips === 'hitl' ? hitlChips : s.chips, id);
-    }
-
-    document.querySelectorAll('.sim-btn').forEach(b => b.addEventListener('click', () => runSim(b.dataset.sim)));
+    loadPlaces();
   </script>
 </body>
 </html>
